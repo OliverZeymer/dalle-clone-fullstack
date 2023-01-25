@@ -37,7 +37,29 @@ const CreatePost = () => {
     }
   };
 
-  function handleSubmit(e) {}
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (form.prompt && form.photo) {
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+        await response.json();
+        navigate("/");
+      } catch (err) {
+        alert(err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert("Please provide proper prompt and image");
+    }
+  }
   function handleChange(e) {
     setForm({
       ...form,
@@ -95,7 +117,7 @@ const CreatePost = () => {
         <div className="mt-10">
           <p className="mt-2 text-sm text-[#666e75]">Once you have created the image you want, you can share it with others in the community</p>
           <button className="mt-3 w-full rounded-md bg-[#6469ff] px-5 py-2.5 text-center text-sm font-medium text-white sm:w-auto" type="submit">
-            {loading ? "Sharing..." : "Share"}
+            {loading ? "Sharing..." : "Share with community"}
           </button>
         </div>
       </form>
