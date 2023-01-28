@@ -7,8 +7,16 @@ import ImageModal from "./ImageModal";
 export default function Card({ _id, name, prompt, photo }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <>
-      <div className="card group relative cursor-pointer rounded-xl shadow-card hover:shadow-cardhover" onClick={() => setIsModalOpen(true)}>
+    <div
+      onKeyDown={(e) => {
+        console.log(e);
+        if ((e.key === "Escape" && isModalOpen === true) || (e.key === "Esc" && isModalOpen === true)) {
+          setIsModalOpen(false);
+        }
+      }}
+      tabIndex="0"
+      className="card group">
+      <div className=" relative cursor-pointer rounded-xl shadow-card hover:shadow-cardhover" onClick={() => setIsModalOpen(true)}>
         <img className="h-auto w-full rounded-xl object-cover" src={photo} alt={prompt} />
         <div className="absolute bottom-0 left-0 right-0 m-2 hidden max-h-[94.5%] flex-col rounded-md bg-[#10131f] p-4 group-hover:flex">
           <p className="prompt overflow-y-auto text-sm text-light">{prompt}</p>
@@ -25,8 +33,8 @@ export default function Card({ _id, name, prompt, photo }) {
         </div>
       </div>
       <AnimatePresence>
-        {isModalOpen && <ImageModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} photo={photo} _id={_id} downloadImage={downloadImage} prompt={prompt} download={download} />}
+        {isModalOpen ? <ImageModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} photo={photo} _id={_id} downloadImage={downloadImage} prompt={prompt} download={download} /> : null}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

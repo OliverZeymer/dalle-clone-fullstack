@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
@@ -83,20 +83,20 @@ const CreatePost = () => {
       </div>
 
       <p>{error}</p>
-      <form className="mt-10 max-w-3xl" onSubmit={handleSubmit}>
+      <form className="mt-6 max-w-3xl" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
           <FormField labelName="Your name" type="text" name="name" placeholder="John Doe" value={form.name} handleChange={handleChange} />
           <FormField
             labelName="Prompt"
             type="text"
             name="prompt"
-            placeholder="a surrealist dream-like oil painting by Salvador Dalí of a cat playing checkers"
+            placeholder={getRandomPrompt()}
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
           />
-          <div className="relative flex h-3/4 w-3/4 items-center justify-center rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+          <div className="relative flex h-3/4 w-3/4 items-center justify-center rounded-lg border border-gray-text bg-[#272727] text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
             {form.photo ? (
               <img src={form.photo} alt={form.prompt} className="h-full w-full object-contain" />
             ) : (

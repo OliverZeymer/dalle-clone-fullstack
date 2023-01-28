@@ -16,12 +16,6 @@ export default function BackgroundBlur({ children, isOpen, setIsOpen }) {
   }, [setIsOpen]);
   return (
     <motion.div
-      onKeyDown={(e) => {
-        if (e.key === "Escape" || e.key === "Esc") {
-          setIsOpen(false);
-        }
-        console.log(e);
-      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
